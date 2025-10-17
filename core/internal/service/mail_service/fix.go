@@ -207,11 +207,8 @@ func FixRspamdDKIMSigningConfig(ctx context.Context) {
 	}
 
 	lines = append([]string{
-		"sign_headers = \"from:sender:reply-to:subject:date:message-id:to:cc:mime-version:content-type:content-transfer-encoding:content-language:resent-to:resent-cc:resent-from:resent-sender:resent-message-id:in-reply-to:references:list-id:list-help:list-owner:list-unsubscribe:list-subscribe:list-post:list-unsubscribe-post:disposition-notification-to:disposition-notification-options:original-recipient:openpgp:autocrypt\";",
-		"\n",
-		"use_esld = true;",
-		"\n",
-		"\n",
+		"sign_headers = \"from:sender:reply-to:subject:date:message-id:to:cc:mime-version:content-type:content-transfer-encoding:content-language:resent-to:resent-cc:resent-from:resent-sender:resent-message-id:in-reply-to:references:list-id:list-help:list-owner:list-unsubscribe:list-subscribe:list-post:list-unsubscribe-post:disposition-notification-to:disposition-notification-options:original-recipient:openpgp:autocrypt\";\n\n",
+		"use_esld = false;\n\n",
 	}, lines...)
 
 	// Write the updated lines back to the DKIM signing configuration file
