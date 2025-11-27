@@ -7,6 +7,7 @@ import (
 	"billionmail-core/internal/service/collect"
 	"billionmail-core/internal/service/domains"
 	"billionmail-core/internal/service/fail2ban"
+	"billionmail-core/internal/service/log_maintenance"
 	"billionmail-core/internal/service/mail_boxes"
 	"billionmail-core/internal/service/mail_service"
 	"billionmail-core/internal/service/maillog_stat"
@@ -186,6 +187,10 @@ func Start(ctx context.Context) (err error) {
 	// Check the domain name blacklist
 	gtimer.Add(24*time.Hour, func() {
 		domains.CheckDomainsBlacklist(ctx)
+	})
+
+	gtimer.Add(24*time.Hour, func() {
+		log_maintenance.CompressAndCleanupLogs(ctx)
 	})
 
 	g.Log().Debug(ctx, "All timers started successfully")
