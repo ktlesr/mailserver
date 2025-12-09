@@ -6,7 +6,7 @@ ADMIN_PASSWORD=billion
 SafePath=billion
 
 # BILLIONMAIL_HOSTNAME configuration, Postfix myhostname configuration
-BILLIONMAIL_HOSTNAME=mail.example.com
+BILLIONMAIL_HOSTNAME=mail.tesviksor.com
 
 # pgsql NAME and USER and PASSWORD configuration
 
