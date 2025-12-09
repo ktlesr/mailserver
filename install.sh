@@ -19,8 +19,8 @@ POP_PORT=110
 POPS_PORT=995
 REDIS_PORT=127.0.0.1:26379
 SQL_PORT=127.0.0.1:25432
-HTTP_PORT=80
-HTTPS_PORT=443
+HTTP_PORT=81
+HTTPS_PORT=444
 SafePath=$(LC_ALL=C </dev/urandom tr -dc A-Za-z0-9 2> /dev/null | head -c 8)
 REDISPASS=$(LC_ALL=C </dev/urandom tr -dc A-Za-z0-9 2> /dev/null | head -c 32)
 ADMIN_USERNAME=$(LC_ALL=C </dev/urandom tr -dc A-Za-z0-9 2> /dev/null | head -c 8)
@@ -893,7 +893,9 @@ Set_Firewall() {
         if [ -f "/usr/sbin/ufw" ]; then
             ufw allow 22/tcp >/dev/null 2>&1
             ufw allow 80/tcp >/dev/null 2>&1
+			ufw allow 81/tcp >/dev/null 2>&1
             ufw allow 443/tcp >/dev/null 2>&1
+			ufw allow 444/tcp >/dev/null 2>&1
             ufw allow ${SMTP_PORT}/tcp >/dev/null 2>&1
             ufw allow ${SMTPS_PORT}/tcp >/dev/null 2>&1
             ufw allow ${SUBMISSION_PORT}/tcp >/dev/null 2>&1
@@ -914,6 +916,8 @@ Set_Firewall() {
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 22 -j ACCEPT
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 80 -j ACCEPT
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 443 -j ACCEPT
+			iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 81 -j ACCEPT
+            iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport 444 -j ACCEPT
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport ${SMTP_PORT} -j ACCEPT
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport ${SMTPS_PORT} -j ACCEPT
             iptables -I INPUT -p tcp -m state --state NEW -m tcp --dport ${SUBMISSION_PORT} -j ACCEPT
@@ -947,6 +951,8 @@ Set_Firewall() {
             firewall-cmd --permanent --zone=public --add-port=22/tcp >/dev/null 2>&1
             firewall-cmd --permanent --zone=public --add-port=80/tcp >/dev/null 2>&1
             firewall-cmd --permanent --zone=public --add-port=443/tcp > /dev/null 2>&1
+			firewall-cmd --permanent --zone=public --add-port=81/tcp >/dev/null 2>&1
+            firewall-cmd --permanent --zone=public --add-port=444/tcp > /dev/null 2>&1
             firewall-cmd --permanent --zone=public --add-port=${SMTP_PORT}/tcp >/dev/null 2>&1
             firewall-cmd --permanent --zone=public --add-port=${SMTPS_PORT}/tcp >/dev/null 2>&1
             firewall-cmd --permanent --zone=public --add-port=${SUBMISSION_PORT}/tcp >/dev/null 2>&1
