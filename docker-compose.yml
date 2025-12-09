@@ -203,7 +203,7 @@ services:
         - NET_RAW
       ports:
         - "${HTTP_PORT:-81}:${HTTP_PORT:-81}"
-        - "${HTTPS_PORT:-443}:${HTTPS_PORT:-443}"
+        - "${HTTPS_PORT:-444}:${HTTPS_PORT:-444}"
       restart: always
       networks:
         billionmail-network:
